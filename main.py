@@ -13,8 +13,8 @@ bot.config = config
 bot.remove_command('help')
 
 if __name__ == '__main__':
-    for cog in config.get('cogs'):
-        bot.load_extension(cog)
+    for cog in [x.split('.')[0] for x in os.listdir('cogs') if '__' not in x]:
+        bot.load_extension(f'cogs.{cog}')
 
     bot.debug = bot.get_cog('Development').debug
     bot.database = bot.get_cog('Database')

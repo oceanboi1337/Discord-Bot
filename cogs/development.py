@@ -1,6 +1,8 @@
 import discord
 from discord.ext import commands
 
+import os
+
 class Development(commands.Cog):
     def __init__(self, bot : commands.Bot):
         self.bot = bot
@@ -10,13 +12,13 @@ class Development(commands.Cog):
     async def reload(self, ctx):
         embed = discord.Embed(title=f'Cogs Manager', description='Reloading', color=discord.Color.blurple())
 
-        cogs = self.bot.config['cogs']
+        cogs = [x.split('.')[0] for x in os.listdir('cogs') if '__' not in x]
         counter = 0
 
         for cog in cogs:
             name = cog.split('.')[-1].capitalize()
             try:
-                self.bot.reload_extension(cog)
+                self.bot.reload_extension(f'cogs.{cog}')
                 embed.add_field(name=f'✅ {name}', value='Success')
                 counter += 1
             except Exception as e:
