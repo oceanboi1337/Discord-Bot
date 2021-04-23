@@ -20,7 +20,7 @@ class Events(commands.Cog):
         elif isinstance(err, commands.CommandOnCooldown):
             await ctx.reply(err)
         elif isinstance(err, commands.MissingRole):
-            await ctx.reply(err)
+            await ctx.reply(f'You need the `{err.missing_role}` role to use this command.')
 
     @commands.Cog.listener()
     async def on_guild_join(self, guild : discord.Guild):

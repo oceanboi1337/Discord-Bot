@@ -26,6 +26,11 @@ class Essentials(commands.Cog):
                     if command.cog_name == cog.capitalize():
                         embed.add_field(name=command.name, value=command.description)
                 await ctx.send(embed=embed)
+            else:
+                embed = discord.Embed(title=f'Command Usage', description='', color=discord.Color.blurple())
+                usage = self.bot.commands[cmd].usage
+                embed.add_field(name=cmd, value=usage)
+                await ctx.send(embed=embed)
 
 def setup(bot):
     bot.add_cog(Essentials(bot))

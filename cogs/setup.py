@@ -16,6 +16,10 @@ class Setup(commands.Cog):
             'Verified': {
                 'color': discord.Color.blurple(),
                 'hoist': True
+            },
+            'Elite Hacker': {
+                'color': discord.Color.green(),
+                'hoist': True
             }
         }
 
