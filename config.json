@@ -1,0 +1,14 @@
+{
+    "database": "discord.db",
+    "prefix": ".",
+    "cogs": [
+        "cogs.development",
+        "cogs.database",
+        "cogs.events",
+        "cogs.hacking",
+        "cogs.moderation",
+        "cogs.protection",
+        "cogs.setup",
+        "cogs.essentials"
+    ]
+}
