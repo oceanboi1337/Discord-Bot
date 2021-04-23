@@ -1,0 +1,38 @@
+import discord
+from discord.ext import commands
+
+class Development(commands.Cog):
+    def __init__(self, bot : commands.Bot):
+        self.bot = bot
+
+    @commands.command()
+    @commands.is_owner()
+    async def reload(self, ctx):
+        embed = discord.Embed(title=f'Cogs Manager', description='Reloading', color=discord.Color.blurple())
+
+        cogs = self.bot.config['cogs']
+        counter = 0
+
+        for cog in cogs:
+            name = cog.split('.')[-1].capitalize()
+            try:
+                self.bot.reload_extension(cog)
+                embed.add_field(name=f'✅ {name}', value='Success')
+                counter += 1
+            except Exception as e:
+                embed.add_field(name=f'❌ {name}', value=e)
+        
+        self.bot.debug = self.bot.get_cog('Development').debug
+        self.bot.database = self.bot.get_cog('Database')
+        
+        await self.bot.database.initialize()
+        
+        embed.set_footer(text=f'{counter}/{len(cogs)} Cogs reloaded')
+        
+        await ctx.send(embed=embed)
+
+    async def debug(self, text):
+        await self.bot.get_channel(834929087822430228).send(text)
+
+def setup(bot):
+    bot.add_cog(Development(bot))
